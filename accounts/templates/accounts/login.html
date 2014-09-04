@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+ <div>
+ <h1>Third-party authentication demo</h1>
+
+ <p>
+   <ul>
+   {% if user and not user.is_anonymous %}
+     <li>
+       <a>Hello {{ user.get_full_name|default:user.username }}!</a>
+     </li>
+     <li>
+       <a href="{% url 'auth:logout' %}">Logout</a>
+     </li>
+   {% else %}
+      <li>
+        <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
+      </li>
+      <li>
+        <a>Login by Email</a>
+        <form method="post" action="/login/">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          {% buttons %}
+            <button type="submit">Register</button>
+          {% endbuttons %}
+        </form>
+      </li>
+      <li>
+        <a href="/register">Register by Email</a>
+      </li>
+   {% endif %}
+   </ul>
+    
+ </p>
+ </div>
+{% endblock %}
