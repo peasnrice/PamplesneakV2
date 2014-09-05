@@ -6,6 +6,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', 'pamplesneak.views.home'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('accounts.urls')),
     url(r'^login/$', 'accounts.views.login'),
     url(r'^logout/$', 'accounts.views.logout'),
     url(r'^register/$', 'accounts.views.register_user'),
